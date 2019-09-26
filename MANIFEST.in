@@ -1,0 +1,5 @@
+include requirements.txt
+include README.md
+recursive-include pc2 *.ini
+recursive-include docs *.rst *.png *.svg *.css *.html conf.py
+prune docs/build/*
