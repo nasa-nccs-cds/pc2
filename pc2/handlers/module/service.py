@@ -16,7 +16,7 @@ class ServiceHandler( Handler ):
         return DirectClient( **kwargs )
 
     def newApplication(self, core: PC2Core, **kwargs ) -> PC2AppBase:
-        raise Exception( "Can't stand up a pc2 app for an endpoint")
+        raise Exception( "Can't stand up a pc2 app for an module")
 
 
 

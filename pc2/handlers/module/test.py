@@ -1,17 +1,17 @@
 import os
 from typing import Dict, List
-from pc2.module.handler.test import Endpoint, TaskHandle, TestTask, TaskResult
+from pc2.module.handler.test import Module, TaskHandle, TestTask, TaskResult
 
-class TestEndpoint1(Endpoint):
+class TestModule1(Module):
 
     def __init__( self, **kwargs ):
-        Endpoint.__init__( self, **kwargs )
+        Module.__init__( self, **kwargs )
         self._epas = [ f"test{index}" for index in range(10) ]
 
     def request(self, requestSpec: Dict, inputs: List[TaskResult] = None, **kwargs ) -> "TaskHandle":
         workTime = self.getWorktime( requestSpec["operations"] )
         tparms = { **self.parms, **kwargs }
-        self.logger.info( f"exec TestEndpoint, request = {requestSpec}, parms = {tparms}")
+        self.logger.info( f"exec TestModule, request = {requestSpec}, parms = {tparms}")
         return TestTask( workTime, **tparms )
 
     def getWorktime(self, operations: List[Dict]) -> float :

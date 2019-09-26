@@ -15,7 +15,7 @@ if __name__ == "__main__":
     pc2 = PC2Core(settings)
     client = pc2.getClient()
 
-# Define an analytics request (time average of merra2 surface temperature) directed to the 'xop' endpoint
+# Define an analytics request (time average of merra2 surface temperature) directed to the 'xop' module
 
     uri = mgr.getAddress("merra2", "tas") if USE_OPENDAP else "collection://cip_merra2_mth"
     requestSpec = dict(
@@ -35,7 +35,7 @@ if __name__ == "__main__":
         print(f"Received result dataset containing variables: ")
         for name, var in dset.data_vars.items():
             print( f"\t {name}:  dims = {var.dims}, shape = {var.shape}")
-        rpath = f"/tmp/endpoint-sample-result-{ind}.nc"
+        rpath = f"/tmp/module-sample-result-{ind}.nc"
         print( f"Saving result to {rpath}\n\n")
         dset.to_netcdf( rpath )
 

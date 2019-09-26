@@ -28,7 +28,7 @@ if __name__ == "__main__":
     print(f"Completed Request, NResults = {len(dsets)}" )
     dvar: xa.Variable
     for index,dset in enumerate(dsets):
-        fileName =  f"/tmp/edas_endpoint_test_result-{index}.nc"
+        fileName =  f"/tmp/edas_module_test_result-{index}.nc"
         print( f"Got result[{index}]: Saving to file {fileName}, Variables: " )
         for vname in dset.variables:
             print(f"   -> Variable[{vname}]: Shape = {dset[vname].shape}")

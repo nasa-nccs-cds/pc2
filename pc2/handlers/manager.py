@@ -80,7 +80,7 @@ class Handlers:
     def getEpas(self, core: PC2CoreBase, **kwargs) -> List[str]:
         epas = []
         for service in self._handlers.values():
-            epas.extend( service.client(core,**kwargs).endpointSpecs )
+            epas.extend( service.client(core,**kwargs).moduleSpecs )
         return epas
 
     def getApplicationHandler(self) -> Optional[PC2Factory]:

@@ -14,7 +14,7 @@ class JsonBlueprint(Blueprint):
         super(JsonBlueprint, self).register(app, options, first_registration)
         self.app = app
 
-    def add_url_rule(self, rule, endpoint=None, view_func=None, **options):
+    def add_url_rule(self, rule, module=None, view_func=None, **options):
         if view_func is not None:
             def _json(f):
                 def __json(*args, **kw):
@@ -26,7 +26,7 @@ class JsonBlueprint(Blueprint):
                 return __json
 
             view_func = _json(view_func)
-        return super(JsonBlueprint, self).add_url_rule(rule, endpoint, view_func, **options)
+        return super(JsonBlueprint, self).add_url_rule(rule, module, view_func, **options)
 
 class SwaggerBlueprint(JsonBlueprint):
     def __init__(self, name, import_name, swagger_spec, static_folder=None, static_url_path=None, template_folder=None, url_prefix=None, subdomain=None, url_defaults=None, root_path=None):
@@ -47,13 +47,13 @@ class SwaggerBlueprint(JsonBlueprint):
 
     def operation(self, operation_id, **options):
         def decorator(f):
-            endpoint = options.pop("endpoint", f.__name__)
+            module = options.pop("module", f.__name__)
             if "methods" in options:
                 raise ValueError("You can't pass the methods")
             op = self.ops[operation_id]
             path = op['path'].replace('{', '<')
             path = path.replace('}', '>')
-            self.add_url_rule(path, endpoint, f,  methods=[op['method']], **options)
+            self.add_url_rule(path, module, f,  methods=[op['method']], **options)
             return f
         return decorator
 

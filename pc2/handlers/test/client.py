@@ -1,5 +1,5 @@
-from pc2.handlers.endpoint.test import TestEndpoint1
-from pc2.handlers.endpoint.client import DirectClient
+from pc2.handlers.module.test import TestModule1
+from pc2.handlers.module.client import DirectClient
 from typing import Dict
 
 
@@ -10,9 +10,9 @@ class TestClient(DirectClient):
         self._epas = [ "test" ]
 
 
-    def instantiateEndpoint(self):
+    def instantiateModule(self):
         eparms = { "handle":self.handle, **self.parms }
-        return TestEndpoint1( **eparms )
+        return TestModule1( **eparms )
 
 
     def capabilities(self, type: str, **kwargs  ) -> Dict:
@@ -21,4 +21,4 @@ class TestClient(DirectClient):
 
 if __name__ == "__main__":
     dc = TestClient()
-    dc.instantiateEndpoint()
+    dc.instantiateModule()

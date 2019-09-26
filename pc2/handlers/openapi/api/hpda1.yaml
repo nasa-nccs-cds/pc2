@@ -94,7 +94,7 @@ paths:
       description: Returns end point addresses handled by this service
       responses:
         "200":
-          description: List of endpoint address specs
+          description: List of module address specs
           schema:
             type: array
             items:

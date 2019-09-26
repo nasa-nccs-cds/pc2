@@ -1,4 +1,4 @@
-from pc2.handlers.endpoint.client import DirectClient
+from pc2.handlers.module.client import DirectClient
 from pc2.module.handler.base import TaskHandle, Status
 
 if __name__ == "__main__":
@@ -17,7 +17,7 @@ if __name__ == "__main__":
         return addresses[model.lower()].format(varName)
 
 
-    client = DirectClient(module="edas.pc2.endpoint", handler="EDASEndpoint")
+    client = DirectClient(module="edas.pc2.module", handler="EDASModule")
     client.init()
 
     request = dict(

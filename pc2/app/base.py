@@ -199,7 +199,7 @@ class PC2AppBase(Thread):
         ops: List[Op] = OpSet( nodes = [ Op( **opDict ) for opDict in ops ] )
         for op in ops:
             clients = self.core.getClients( op )
-            assert len(clients) > 0, f"Can't find a client to process the operation': {op.epas}, clients = { [str(client.endpointSpecs) for client in self.core.getClients( op )] }"
+            assert len(clients) > 0, f"Can't find a client to process the operation': {op.epas}, clients = { [str(client.moduleSpecs) for client in self.core.getClients( op )] }"
             for client in clients:
                opSet = clientOpsets.setdefault(client.handle, ClientOpSet(request,client))
                opSet.add( op )

@@ -3,11 +3,11 @@ from typing import List, Dict, Any, Sequence, BinaryIO, TextIO, ValuesView, Opti
 from pc2.module.handler.base import TaskHandle
 import os
 
-testEndpoint = dict( type="endpoint", module="pc2.handlers.endpoint.test", object="TestEndpoint1" )
+testModule = dict( type="module", module="pc2.handlers.module.test", object="TestModule1" )
 
 if __name__ == "__main__":
 
-    settings = dict( server=dict(type="test"), test1=testEndpoint, test2=testEndpoint, test3=testEndpoint )
+    settings = dict( server=dict(type="test"), test1=testModule, test2=testModule, test3=testModule )
     pc2 = PC2Core( settings )
     app = pc2.getApplication()
 

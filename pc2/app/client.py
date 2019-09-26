@@ -4,14 +4,14 @@ from pc2.module.handler.base import TaskHandle, Status, TaskResult
 import abc, fnmatch, traceback
 from decorator import decorator, dispatch_on
 
-class EndpointSpec:
+class ModuleSpec:
     def __init__(self, epaSpec: str ):
         self.logger = PC2Logger.getLogger()
         self._epaSpec = epaSpec
 
     def handles( self, epa: str, **kwargs ) -> bool:
         try:
-            self.logger.debug(f"EndpointSpec: comparing '{epa}' against epaSpec '{self._epaSpec}'")
+            self.logger.debug(f"ModuleSpec: comparing '{epa}' against epaSpec '{self._epaSpec}'")
             return fnmatch.fnmatch( epa, self._epaSpec )
         except Exception as err:
             self.logger.error( f"Error Checking EPA '{epa}' against epaSpec '{self._epaSpec}': {str(err)}")
@@ -39,7 +39,7 @@ class PC2Client:
         self.parms = { **kwargs, "cid": self.cid, "type": type }
         self.priority: float = float( self.parm( "priority", "0" ) )
         self.active = False
-        self._endpointSpecs: List[EndpointSpec] = None
+        self._moduleSpecs: List[ModuleSpec] = None
         self.clients = { self.cid }
 
     @property
@@ -51,11 +51,11 @@ class PC2Client:
         self.init()
 
     def init( self ):
-        if self._endpointSpecs is None:
-            endPointData = self.capabilities("epas")
-            if "error" in endPointData: raise Exception( "Error accessing endpoint data: " + endPointData["message"] )
-            self.logger.info( "EndpointSpecs: " + str(endPointData))
-            self._endpointSpecs = [ EndpointSpec(epaSpec) for epaSpec in endPointData["epas"] ]
+        if self._moduleSpecs is None:
+            moduleData = self.capabilities("epas")
+            if "error" in moduleData: raise Exception( "Error accessing module data: " + moduleData["message"] )
+            self.logger.info( "ModuleSpecs: " + str(moduleData))
+            self._moduleSpecs = [ ModuleSpec(epaSpec) for epaSpec in moduleData["epas"] ]
             self.activate()
 
     @abc.abstractmethod
@@ -69,12 +69,12 @@ class PC2Client:
     def capabilities(self, type: str, **kwargs ) -> Dict: pass
 
     @property
-    def endpointSpecs(self) -> List[str]:
-        return [str(eps) for eps in self._endpointSpecs]
+    def moduleSpecs(self) -> List[str]:
+        return [str(eps) for eps in self._moduleSpecs]
 
     def handles(self, epa: str, **kwargs ) -> bool:
-        for endpointSpec in self._endpointSpecs:
-            if endpointSpec.handles( epa, **kwargs ): return True
+        for moduleSpec in self._moduleSpecs:
+            if moduleSpec.handles( epa, **kwargs ): return True
         return False
 
     def __getitem__( self, key: str ) -> str:

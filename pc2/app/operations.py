@@ -386,7 +386,7 @@ class PC2Workflow(WorkflowBase):
 if __name__ == "__main__":
     from pc2.app.core import PC2Core
     from pc2.util.test import TestDataManager as mgr
-    settings = dict( server=dict( type="endpoint" ) )
+    settings = dict( server=dict( type="module" ) )
 
     core = PC2Core( settings )
     client = core.getClient()

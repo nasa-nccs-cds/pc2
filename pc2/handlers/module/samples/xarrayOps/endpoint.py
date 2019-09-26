@@ -1,15 +1,15 @@
 from pc2.module.handler.base import TaskHandle, TaskResult
 from typing import List, Dict, Any, Sequence, BinaryIO, TextIO, ValuesView, Optional, Callable
 from pc2.module.util.config import PC2Logger
-from pc2.module.handler.execution import Executable, ExecEndpoint
+from pc2.module.handler.execution import Executable, ExecModule
 import xarray as xa
 import abc
 
 
-class XaOpsEndpoint(ExecEndpoint):
+class XaOpsModule(ExecModule):
 
     """
-        This class is used to implement the capabilities of the Endpoint.
+        This class is used to implement the capabilities of the Module.
     """
 
     @abc.abstractmethod
@@ -41,15 +41,15 @@ class XaOpsEndpoint(ExecEndpoint):
 
     def capabilities(self, type: str, **kwargs ) -> Dict:
         """
-            Used to return metadata describing the capabilities of the Endpoint.
-            The only required response is the definition the Endpoint Address (epa) for this Endpoint.
-            The epa is used to route operation requests to the an Endpoint that can process them.
+            Used to return metadata describing the capabilities of the Module.
+            The only required response is the definition the Module Address (epa) for this Module.
+            The epa is used to route operation requests to the an Module that can process them.
 
             Parameters:
                 type (str):  Optionally allows the definition of various types of capabilty requests.
 
             Returns:
-                  Dict:  metadata describing the capabilities of the Endpoint.
+                  Dict:  metadata describing the capabilities of the Module.
             """
         return dict( epas = [ "xop*"] )
 
