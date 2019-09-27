@@ -1,6 +1,6 @@
 import os
 from typing import Dict, List
-from pc2.module.handler.test import Module, TaskHandle, TestTask, TaskResult
+from pc2base.module.handler.test import Module, TaskHandle, TestTask, TaskResult
 
 class TestModule1(Module):
 

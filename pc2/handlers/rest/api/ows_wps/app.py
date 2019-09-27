@@ -1,10 +1,10 @@
 from flask import request, Blueprint, make_response
-from pc2.module.handler.base import TaskResult, Status
+from pc2base.module.handler.base import TaskResult, Status
 import xarray as xa
-from pc2.module.util.config import UID
+from pc2base.module.util.config import UID
 import pickle, json, flask, os
 from jinja2 import Environment, PackageLoader, select_autoescape
-from pc2.module.handler.base import TaskHandle
+from pc2base.module.handler.base import TaskHandle
 from pc2.app.base import PC2AppBase
 from typing import *
 from pc2.handlers.rest.app import RestAPIBase

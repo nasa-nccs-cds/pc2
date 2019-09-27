@@ -1,10 +1,10 @@
 import json, string, random, abc, os, pickle, collections
 from typing import List, Dict, Any, Sequence, BinaryIO, TextIO, ValuesView, Tuple, Optional
-from pc2.module.util.config import PC2Logger
+from pc2base.module.util.config import PC2Logger
 from threading import Thread
 import zmq, zmq.auth, traceback, time, logging, xml, socket
 from pc2.app.operations import Status
-from pc2.module.handler.base import TaskHandle
+from pc2base.module.handler.base import TaskHandle
 from pc2.app.operations import PC2Workflow
 from typing import List, Dict, Sequence, Set
 import random, string, os, queue, datetime
@@ -64,7 +64,7 @@ class PC2ZMQResponder(Thread):
         self.secret_keys_dir = os.path.join(base_dir, 'private_keys')
 
     def getDataPacket(self, rid: str, status: Status, workflow: PC2Workflow) -> DataPacket:
-        from pc2.module.handler.base import TaskResult
+        from pc2base.module.handler.base import TaskResult
         if (status == Status.COMPLETED):
             taskHandle: TaskHandle = workflow.getResult()
             assert taskHandle is not None, f"Can't get result for completed workflow: {rid}"

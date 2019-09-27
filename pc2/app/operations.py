@@ -1,9 +1,9 @@
 import copy, os, time, traceback, abc
 from typing import List, Dict, Set, Iterator, Any, Optional, Tuple
-from pc2.module.util.config import PC2Logger, UID
+from pc2base.module.util.config import PC2Logger, UID
 from pc2.app.client import PC2Client
 from concurrent.futures import wait, as_completed, Executor, Future
-from pc2.module.handler.base import TaskHandle, TaskResult, TaskFuture, Status, FailedTask
+from pc2base.module.handler.base import TaskHandle, TaskResult, TaskFuture, Status, FailedTask
 from pc2.app.graph import DGNode, DependencyGraph, graphop, Connection
 
 class Op(DGNode):

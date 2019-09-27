@@ -1,5 +1,5 @@
 from flask import request, Blueprint, make_response
-from pc2.module.handler.base import TaskHandle, TaskResult
+from pc2base.module.handler.base import TaskHandle, TaskResult
 import pickle
 from typing import *
 from pc2.handlers.rest.app import RestAPIBase

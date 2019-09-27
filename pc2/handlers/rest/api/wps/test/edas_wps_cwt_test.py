@@ -1,5 +1,5 @@
 from pc2.app.core import PC2Core
-from pc2.module.handler.base import TaskHandle
+from pc2base.module.handler.base import TaskHandle
 
 settings = dict( server = dict( type="rest", API="wps", host_address="https://edas.nccs.nasa.gov/wps/cwt" ) )
 core = PC2Core(settings)

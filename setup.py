@@ -1,9 +1,10 @@
 import sys, os
 from setuptools import setup, find_packages
+base_services = [ "celery", "module" ]
 
 def get_requirements():
-    handlers = [ "celery", "module", "zeromq", "openapi", "lambda", "rest", "rest_client" ]
-    requirement_files = []
+    handlers = [ "celery", "module", "zeromq", "lambda", "rest", "rest_client" ]
+    requirement_files = [ f"requirements/{service}.txt" for service in  base_services ]
     for handler in handlers:
         if handler in sys.argv:
             sys.argv.remove(handler)

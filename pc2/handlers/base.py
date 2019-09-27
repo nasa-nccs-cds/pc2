@@ -32,8 +32,8 @@ class Handler(PC2Factory):
         if client is None:
             self.logger.info(f"create client {self.name}:\n kwargs= {kwargs}\n core.parms = {core.parms}\n core.config = {core.config}\n handler.parms = {self.parms}\n handler.type = {self.type}\n handler.name = {self.name}")
             client = self.newClient( core, **self.parms )
-            if activate: client.activate()
             self._clients[ client.cid ] = client
+            if activate: client.activate()
         return client
 
     def app(self, core: PC2Core ) -> PC2AppBase:

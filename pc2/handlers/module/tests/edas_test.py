@@ -1,5 +1,5 @@
 from pc2.handlers.module.client import DirectClient
-from pc2.module.handler.base import TaskHandle, Status
+from pc2base.module.handler.base import TaskHandle, Status
 
 if __name__ == "__main__":
     CreateIPServer = "https://dataserver.nccs.nasa.gov/thredds/dodsC/bypass/CREATE-IP/"
@@ -17,7 +17,7 @@ if __name__ == "__main__":
         return addresses[model.lower()].format(varName)
 
 
-    client = DirectClient(module="edas.pc2.module", handler="EDASModule")
+    client = DirectClient(module="edas.pc2base.module", handler="EDASModule")
     client.init()
 
     request = dict(

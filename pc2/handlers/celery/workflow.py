@@ -1,8 +1,8 @@
-from pc2.module.handler.base import  TaskHandle, Status, TaskResult, FailedTask
+from pc2base.module.handler.base import  TaskHandle, Status, TaskResult, FailedTask
 from pc2.app.operations import WorkflowBase, WorkflowTask
 from pc2.app.graph import DGNode, DependencyGraph, graphop, Connection
 from celery.result import AsyncResult
-from pc2.module.util.config import PC2Logger, UID
+from pc2base.module.util.config import PC2Logger, UID
 from celery import group, states
 from pc2.app.client import PC2Client
 from typing import Dict, List, Optional

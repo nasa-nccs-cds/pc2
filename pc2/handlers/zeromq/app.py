@@ -1,13 +1,13 @@
 from pc2.app.base import PC2ServerApp
 from pc2.app.core import PC2Core
 import json, os, sys
-from pc2.module.util.config import PC2Logger
+from pc2base.module.util.config import PC2Logger
 from zmq.auth.thread import ThreadAuthenticator
 import zmq, traceback
 from typing import Dict
 import queue, datetime
 from .responder import PC2ZMQResponder, PC2Response
-from pc2.module.handler.base import Status
+from pc2base.module.handler.base import Status
 MB = 1024 * 1024
 
 class PC2App(PC2ServerApp):

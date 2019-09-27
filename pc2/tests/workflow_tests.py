@@ -1,6 +1,6 @@
 from pc2.app.core import PC2Core
 from typing import List, Dict, Any, Sequence, BinaryIO, TextIO, ValuesView, Optional
-from pc2.module.handler.base import TaskHandle
+from pc2base.module.handler.base import TaskHandle
 import os
 
 testModule = dict( type="module", module="pc2.handlers.module.test", object="TestModule1" )

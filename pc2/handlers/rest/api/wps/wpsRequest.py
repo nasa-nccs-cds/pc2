@@ -2,9 +2,9 @@ import requests, json, pickle
 from xml.etree.ElementTree import Element
 import defusedxml.ElementTree as ET
 import xarray as xa
-from pc2.module.util.config import Config, PC2Logger, UID
+from pc2base.module.util.config import Config, PC2Logger, UID
 from typing import List, Dict, Any, Sequence, BinaryIO, TextIO, ValuesView, Optional
-from pc2.module.util.config import PC2Logger
+from pc2base.module.util.config import PC2Logger
 
 def boolStr( bval ): return "true" if bval else "false"
 

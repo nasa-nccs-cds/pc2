@@ -1,5 +1,5 @@
 from pc2.app.client import PC2Client, pc2request
-from pc2.module.handler.base import TaskHandle, Module, TaskResult
+from pc2base.module.handler.base import TaskHandle, Module, TaskResult
 from typing import Dict, List
 import importlib, traceback
 
@@ -10,7 +10,7 @@ class DirectClient(PC2Client):
         self.module: Module = None
 
     def instantiateModule( self ) -> Module:
-        module = self["module"]
+        module = self["package"]
         class_name = self["object"]
         module = importlib.import_module(module)
         epclass = getattr(module, class_name)

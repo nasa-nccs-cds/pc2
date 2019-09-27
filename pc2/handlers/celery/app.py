@@ -2,8 +2,8 @@ from pc2.app.core import PC2Core
 from pc2.app.base import PC2AppBase, PC2EmbeddedApp
 from pc2.app.client import pc2request
 from pc2.app.operations import WorkflowBase
-from pc2.module.util.config import PC2Logger, UID
-from pc2.module.handler.base import TaskHandle, TaskResult
+from pc2base.module.util.config import PC2Logger, UID
+from pc2base.module.handler.base import TaskHandle, TaskResult
 from pc2.app.operations import PC2Workflow, WorkflowTask
 from pc2.app.client import PC2Client
 from pc2.handlers.manager import Handlers
@@ -39,7 +39,7 @@ class CeleryTask(Task):
 
     def initHandler( self, clientSpec: Dict[str,Dict] ):
         if self._handlers is None:
-            hspec: Dict[str,Dict] = { clientSpec['name']: clientSpec, "pc2": { 'type': "celery", 'name':"pc2" } }
+            hspec: Dict[str,Dict] = { clientSpec['name']: clientSpec, "server": { 'type': "celery", 'name':"pc2" } }
             logger.info(f"Init Celery Task Handler with spec: {hspec}")
             self.core = PC2Core( hspec )
             self._handlers = Handlers( self.core, hspec )

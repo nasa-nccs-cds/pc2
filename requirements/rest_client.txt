@@ -1,0 +1,5 @@
+pytest
+sortedcontainers
+jsonschema
+OWSLib
+defusedxml

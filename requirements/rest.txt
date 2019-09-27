@@ -1,0 +1,13 @@
+flask
+pytest
+sqlalchemy_json
+flask_sqlalchemy
+sortedcontainers
+SQLAlchemy>=0.8.0
+jsonschema
+PyYAML>=3.11
+OWSLib
+defusedxml
+
+
+

@@ -1,6 +1,6 @@
 import os, json, yaml, abc, itertools, queue
 from typing import List, Union, Dict, Set, Iterator, Tuple, ItemsView
-from pc2.module.util.config import Config, PC2Logger
+from pc2base.module.util.config import Config, PC2Logger
 from multiprocessing import Process as SubProcess
 from pc2.app.operations import *
 from threading import Thread

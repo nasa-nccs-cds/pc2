@@ -1,6 +1,6 @@
 from typing import List, Dict, Any, Sequence, BinaryIO, TextIO, ValuesView, Tuple, Optional
-from pc2.module.util.config import Config, PC2Logger, UID
-from pc2.module.handler.base import TaskHandle, Status, TaskResult
+from pc2base.module.util.config import Config, PC2Logger, UID
+from pc2base.module.handler.base import TaskHandle, Status, TaskResult
 import abc, fnmatch, traceback
 from decorator import decorator, dispatch_on
 

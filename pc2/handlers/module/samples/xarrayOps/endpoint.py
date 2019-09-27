@@ -1,7 +1,7 @@
-from pc2.module.handler.base import TaskHandle, TaskResult
+from pc2base.module.handler.base import TaskHandle, TaskResult
 from typing import List, Dict, Any, Sequence, BinaryIO, TextIO, ValuesView, Optional, Callable
-from pc2.module.util.config import PC2Logger
-from pc2.module.handler.execution import Executable, ExecModule
+from pc2base.module.util.config import PC2Logger
+from pc2base.module.handler.execution import Executable, ExecModule
 import xarray as xa
 import abc
 

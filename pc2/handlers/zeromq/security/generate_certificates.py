@@ -1,7 +1,7 @@
 import os, sys
 import shutil
 import zmq.auth
-from pc2.module.util.config import PC2Logger
+from pc2base.module.util.config import PC2Logger
 
 def generate_certificates( base_dir, client_only = False ):
     ''' Generate client and server CURVE certificate files'''

@@ -1,4 +1,4 @@
-from pc2.module.handler.base import TaskHandle, TaskResult
+from pc2base.module.handler.base import TaskHandle, TaskResult
 from typing import Sequence, List, Dict, Mapping, Optional, Any
 from edas.process.test import TestDataManager as mgr
 import os, xarray as xa
@@ -6,9 +6,9 @@ from pc2.app.core import PC2Core
 HERE: str = os.path.dirname(os.path.abspath(__file__))
 certificate_path = "/att/nobackup/tpmaxwel/.pc2/zmq/"
 # zmq_settings = dict( pc2 = dict( type="zeromq", client_address = "127.0.0.1", request_port = "4556", response_port = "4557", certificate_path = certificate_path  ) )
-rest_settings = dict( server=dict(type="rest", host="127.0.0.1", port="5000" ) )
-useRest = True
-SETTINGS: str = rest_settings if useRest else os.path.join( HERE, "edas_test_settings.ini" )
+# rest_settings = dict( server=dict(type="rest", host="127.0.0.1", port="5000" ) )
+
+SETTINGS: str = os.path.join( HERE, "edas_test_settings.ini" )
 
 if __name__ == "__main__":
 

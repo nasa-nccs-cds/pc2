@@ -1,10 +1,10 @@
 from celery import Celery
-from pc2.module.util.config import PC2Logger, UID
+from pc2base.module.util.config import PC2Logger, UID
 from threading import Thread
 from typing import Dict, Optional, List
 from pc2.util.parsing import s2b, b2s
 from .app import PC2AppCelery
-from pc2.module.handler.base import TaskHandle, Status, TaskResult
+from pc2base.module.handler.base import TaskHandle, Status, TaskResult
 from pc2.app.client import PC2Client, pc2request
 from pc2.app.core import PC2Core
 import os, pickle, queue

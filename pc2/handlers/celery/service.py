@@ -5,7 +5,7 @@ from .client import CeleryClient
 from pc2.app.core import PC2Core
 from pc2.app.base import PC2AppBase
 from .app import PC2AppCelery
-from pc2.module.util.config import PC2Logger, UID
+from pc2base.module.util.config import PC2Logger, UID
 from pc2.util.parsing import str2bool
 import subprocess, os
 from threading import Thread

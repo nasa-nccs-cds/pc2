@@ -1,8 +1,8 @@
 from pc2.app.client import PC2Client, pc2request
 from typing import Dict, Optional, List
 import xarray as xa
-from pc2.module.util.config import PC2Logger
-from pc2.module.handler.base import TaskHandle, Status, TaskResult
+from pc2base.module.util.config import PC2Logger
+from pc2base.module.handler.base import TaskHandle, Status, TaskResult
 from pc2.app.core import PC2Core
 import os
 from pc2.handlers.rest.api.wps.wpsRequest import WPSExecuteRequest

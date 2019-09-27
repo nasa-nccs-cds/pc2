@@ -1,5 +1,5 @@
 from pc2.app.core import PC2Core
-from pc2.module.handler.base import TaskHandle
+from pc2base.module.handler.base import TaskHandle
 from pc2.util.test import TestDataManager as mgr
 
 settings = dict( server = dict( type="rest", API="ows_wps", host="127.0.0.1", port="5000", route="ows_wps/cwt" ) )

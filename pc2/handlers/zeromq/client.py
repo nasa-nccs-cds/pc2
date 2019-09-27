@@ -1,10 +1,10 @@
 from pc2.app.client import PC2Client, pc2request
 import zmq, zmq.auth, traceback, json
-from pc2.module.util.config import PC2Logger, UID
+from pc2base.module.util.config import PC2Logger, UID
 from threading import Thread
 from typing import Dict, Optional, List
 from pc2.util.parsing import s2b, b2s
-from pc2.module.handler.base import TaskHandle, Status, TaskResult, FailedTask
+from pc2base.module.handler.base import TaskHandle, Status, TaskResult, FailedTask
 from zmq.auth.thread import ThreadAuthenticator
 import os, pickle, queue
 import xarray as xa

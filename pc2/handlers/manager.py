@@ -1,7 +1,7 @@
 import os, json
 from typing import List, Dict, Callable, Optional
 from pc2.app.client import PC2Client
-from pc2.module.util.config import PC2Logger
+from pc2base.module.util.config import PC2Logger
 from pc2.app.base import PC2Factory, PC2CoreBase
 from pc2.util.parsing import str2bool
 from pc2.app.operations import Op
@@ -35,7 +35,7 @@ class Handlers:
             htype = service_spec["type"]
             try:
                 service_name = service_spec.get('name', "")
-                if service_name == "pc2":
+                if service_name == "server":
                     self._app_handler = self._getHandler( service_spec )
                     self.logger.info(f"Initialized pc2 node for service {htype}")
             except Exception as err:
@@ -47,10 +47,10 @@ class Handlers:
             htype = service_spec["type"]
             try:
                 service_name = service_spec.get('name', "")
-                if service_name and (service_name != "pc2") and (service_name not in self._handlers):
+                if service_name and (service_name != "server") and (service_name not in self._handlers):
                     handler = self._getHandler(service_spec)
                     self._handlers[service_name] = handler
-                    self.logger.info(f" ==========================>>>> Adding pc2 handler for service {htype}")
+                    self.logger.info(f" ==========================>>>> Adding pc2 handler for service[{htype}]: {service_name}")
                     if self._app_handler and self._internal_clients:
                         self._app_handler.buildWorker( service_name, service_spec )
             except Exception as err:
@@ -115,8 +115,8 @@ class Handlers:
             if (spec.get("type") in htypes):
                 spec["name"] = name
                 specs.append( spec )
-            elif name == "pc2":
-                raise Exception( f"Must provide 'type' (in {htypes}) parm in 'pc2' configuration: {spec}")
+            elif name == "server":
+                raise Exception( f"Must provide 'type' (in {htypes}) parm in 'server' configuration: {spec}")
             else:
                 self.logger.warn( f" No constructor available for {spec.get('type')}-type client {name}, available types = {htypes}")
         return specs

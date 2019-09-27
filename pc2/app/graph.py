@@ -1,9 +1,9 @@
 import copy, abc
 from typing import List, Dict, Set, Iterator, Any
-from pc2.module.util.config import PC2Logger, UID
+from pc2base.module.util.config import PC2Logger, UID
 from pc2.app.client import PC2Client
 from decorator import decorator, dispatch_on
-from pc2.module.handler.base import TaskHandle
+from pc2base.module.handler.base import TaskHandle
 import networkx as nx
 
 @decorator

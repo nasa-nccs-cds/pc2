@@ -2,9 +2,9 @@ from typing import Dict
 import os, traceback, abc
 from flask import Flask, Response, Blueprint, request
 import json, importlib
-from pc2.module.util.config import PC2Logger
+from pc2base.module.util.config import PC2Logger
 from pc2.app.core import PC2Core
-from pc2.module.handler.base import TaskHandle, Status
+from pc2base.module.handler.base import TaskHandle, Status
 from flask_sqlalchemy import SQLAlchemy
 from pc2.app.base import PC2AppBase, PC2ServerApp
 from jsonschema import validate
