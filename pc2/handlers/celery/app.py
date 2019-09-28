@@ -28,7 +28,6 @@ app.conf.update(
 celery_log_file = os.path.expanduser("~/.pc2/logs/celery.log")
 app.log.setup_logging_subsystem( loglevel=logging.INFO, logfile=celery_log_file, format='[%(asctime)s: %(levelname)s/%(processName)s-> %(pathname)s:%(lineno)d]: %(message)s' )
 
-
 class CeleryTask(Task):
     def __init__(self):
         Task.__init__(self)

@@ -31,3 +31,7 @@ class CeleryClient(PC2Client):
 
     def capabilities(self, type: str, **kwargs ) -> Dict:
         return self._app.capabilities( type, **kwargs )
+
+    def _shutdown(self):
+        self._app.shutdown()
+

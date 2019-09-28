@@ -50,6 +50,10 @@ class PC2Client:
         self.active = True
         self.init()
 
+    def exit(self):
+        self.active = False
+        self._shutdown()
+
     def init( self ):
         if self._moduleSpecs is None:
             moduleData = self.capabilities("epas")
@@ -67,6 +71,9 @@ class PC2Client:
 
     @abc.abstractmethod
     def capabilities(self, type: str, **kwargs ) -> Dict: pass
+
+    @abc.abstractmethod
+    def _shutdown(self): pass
 
     @property
     def moduleSpecs(self) -> List[str]:

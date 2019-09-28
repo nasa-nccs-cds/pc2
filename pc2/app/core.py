@@ -32,3 +32,6 @@ class PC2Core(PC2CoreBase):
 
     def getEpas( self,  **kwargs ) -> List[str]:
         return self.handlers.getEpas(self,  **kwargs)
+
+    def exit(self):
+        self.handlers.shutdown()

@@ -135,7 +135,7 @@ class PC2AppBase(Thread):
 
     def ingestRequests( self ):
         rid = ""
-        while True:
+        while self._active:
             try:
                 request = self.requestQueue.get_nowait()
                 rid = request.get("rid", UID.randomId(6))
@@ -154,17 +154,18 @@ class PC2AppBase(Thread):
 
     def update_workflows(self):
         completed_list = {}
-        for rid, workflow in self.active_workflows.items():
-            completed = workflow.update()
-            if completed:
-                self.logger.info(f" ***********************************   PC2App.completed_workflow: {rid}")
-                completed_list[rid] = workflow
-        for rid, workflow in completed_list.items():
-            self.completed_workflows[rid] = workflow
-            del self.active_workflows[rid]
+        if self._active:
+            for rid, workflow in self.active_workflows.items():
+                completed = workflow.update()
+                if completed:
+                    self.logger.info(f" ***********************************   PC2App.completed_workflow: {rid}")
+                    completed_list[rid] = workflow
+            for rid, workflow in completed_list.items():
+                self.completed_workflows[rid] = workflow
+                del self.active_workflows[rid]
 
     def waitForCompletion(self, rid: str ):
-        while( True ):
+        while( self._active ):
             self.update_workflows()
             if rid in self.completed_workflows: return
             time.sleep( 0.1 )
@@ -283,6 +284,9 @@ class PC2Factory:
 
     @abc.abstractmethod
     def buildWorker(self, name: str, spec: Dict[str, str]): pass
+
+    @abc.abstractmethod
+    def shutdown(self): pass
 
     def __getitem__( self, key: str ) -> str:
         result =  self.parms.get( key, None )
