@@ -29,12 +29,12 @@ Build PC2 installation by installing the pc2-module and pc2 packages:
     > cd pc2
     > python setup.py install <handlers(s)>
 
-The handlers(s) qualifier in the last install command tells the builder to include dependencies for the listed optional services.  To build a pc2 instance that supports both the zeromq and rest services one would execute *“python setup.py install zeromq rest”*, or for only rest: *“python setup.py install rest”*.  
+The handlers(s) qualifier in the last install command tells the builder to include dependencies for the listed optional services.  To build a pc2 instance that supports both the celery and zeromq services one would execute *“python setup.py install celery zeromq”*, or for only rest: *“python setup.py install rest”*.  The purpose of building an instance without Celery would be to stand up a remote module that connects to the process controller via *zmq* or *rest* (and can be installed in a celery-free environment).  
 
 Following are the optional pc2 services:
  
 * zeromq
-* openapi
+* celery
 * rest
 * rest_client
 
