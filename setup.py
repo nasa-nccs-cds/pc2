@@ -1,16 +1,14 @@
 import sys, os
 from setuptools import setup, find_packages
-base_services = [ "celery", "module" ]
+base_services = [  "module" ]
 
 def get_requirements():
-    handlers = [ "celery", "module", "zeromq", "lambda", "rest", "rest_client" ]
+    handlers = [ "celery", "zeromq", "rest", "rest_client" ]
     requirement_files = [ f"requirements/{service}.txt" for service in  base_services ]
     for handler in handlers:
         if handler in sys.argv:
             sys.argv.remove(handler)
             requirement_files.append( f"requirements/{handler}.txt" )
-    if len(requirement_files) == 0:
-        requirement_files = [ f"requirements/{handler}.txt" for handler in handlers ]
     return requirement_files
 
 install_requires = set()

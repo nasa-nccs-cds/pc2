@@ -1,0 +1,12 @@
+{
+  "domain": [
+    { "name": "d0", "time": { "start": "1980-01-01", "end": "2001-12-31", "crs": "timestamps" } }
+  ],
+  "input": [
+    { "uri": "https://dataserver.nccs.nasa.gov//thredds/dodsC/bypass/CREATE-IP/reanalysis/MERRA2/mon/atmos/tas.ncml", "name": "tas:v0", "domain": "d0" }
+  ],
+  "operation": [
+    { "name": "edas:ave", "axis": "xy", "input": "v0", "result": "r0" },
+    { "name": "demo:log", "input": "r0" }
+  ]
+}

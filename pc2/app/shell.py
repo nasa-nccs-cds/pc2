@@ -6,7 +6,7 @@ from pc2base.module.handler.base import TaskHandle, TaskResult
 from typing import Sequence, List, Dict, Mapping, Optional, Any
 import os, xarray as xa
 from pc2.app.core import PC2Core
-HERE: str = os.path.dirname(os.path.abspath(__file__))
+HERE: str = os.getcwd()
 
 class PC2Shell(Cmd):
     prompt = 'pc2> '
@@ -19,7 +19,7 @@ class PC2Shell(Cmd):
         settings: str = self.abs_path( settingsFilePath )
         self.core = PC2Core( settings )
         self.client: PC2Client = self.core.getClient()
-        self.results = {}
+        self.results: Dict[str,TaskHandle] = {}
 
     def do_exit(self, inp):
         print("Shutting down")
@@ -31,15 +31,24 @@ class PC2Shell(Cmd):
     def do_exe(self, requestFilePath ):
         requestSpec = self.load_request( requestFilePath )
         task: TaskHandle = self.client.request( requestSpec )
-        result: Optional[TaskResult] = task.getResult( block=True )
-        if result is None: print( "Request returned NULL result")
-        else:
-            rid = result.header.get( "rid", UID.randomId(6) )
-            print( f"Request {rid} returned a result")
-            self.results[rid] = result
+        print( f"Request {task.rid} returned a result" )
+        self.results[ task.rid ] = task
+
+    def do_ls(self, path: str = None ):
+        mypath = self.abs_path( path )
+        ldir =  os.listdir( mypath )
+        for f in ldir:
+            if os.path.isfile( os.path.join( mypath, f )):
+                print( f" F:  {f}" )
+        for f in ldir:
+            if os.path.isdir( os.path.join( mypath, f )) and f not in [ "~", "__pycache__"]:
+                print( f"  D:  {f}" )
 
     def help_exe(self):
-        print("pc2> exe <request_file>:  Execute the request defined in <request_file>")
+        print("pc2> exe <request_file>:  Execute the request defined in <dir>")
+
+    def help_ls(self):
+        print("pc2> ls <dir>:  List all files in (optional) <request_file>")
 
     def help_exit(self):
         print('Exit the application. Shorthand: x q Ctrl-D.')
@@ -49,10 +58,11 @@ class PC2Shell(Cmd):
         print("Default: {}".format(inp))
 
     def abs_path(self, relpath: str ) -> str:
+        if relpath is None: return HERE
         return relpath if relpath.startswith("/") else os.path.join(HERE, relpath)
 
     def load_request(self, requestFilePath: str):
-        return json.load( self.abs_path(requestFilePath) )
+        return json.load( open( self.abs_path(requestFilePath) ) )
 
     do_EOF = do_exit
     help_EOF = help_exit
