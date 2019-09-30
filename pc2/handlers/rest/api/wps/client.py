@@ -44,7 +44,7 @@ class WPSRestClient(PC2Client):
     def __del__(self):
         self.shutdown()
 
-    def shutdown(self):
+    def shutdown(self, *args, **kwargs):
         if self.active:
             self.active = False
 

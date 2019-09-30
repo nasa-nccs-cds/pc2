@@ -62,8 +62,6 @@ class ZMQClient(PC2Client):
                 self.request_socket = self.context.socket(zmq.REQ)
                 self.request_port = self.connector.connectSocket(self.request_socket, self.host_address, self.default_request_port )
                 self.log("[1]Connected request socket to server {0} on port: {1}".format( self.host_address, self.request_port ) )
-                local_stack = str( [ str(sl) + "\n" for sl in traceback.format_stack() ] )
-                print( f"Initialized zmq client at:\n{local_stack}" )
                 super(ZMQClient, self).init()
 
         except Exception as err:
@@ -92,7 +90,7 @@ class ZMQClient(PC2Client):
     def __del__(self):
         self.shutdown()
 
-    def shutdown(self):
+    def shutdown(self, *args, **kwargs):
         if self.active:
             self.active = False
             try: self.request_socket.close()

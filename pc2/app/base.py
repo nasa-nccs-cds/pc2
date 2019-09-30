@@ -130,9 +130,6 @@ class PC2AppBase(Thread):
         self.registeredRequests.add( request["rid"] )
         return request
 
-    def getWorkflow( self, tasks: List[WorkflowTask] ) -> PC2Workflow:
-        return PC2Workflow(nodes=tasks)
-
     def ingestRequests( self ):
         rid = ""
         while self._active:
@@ -142,7 +139,7 @@ class PC2AppBase(Thread):
                 self.logger.info(f"Ingest request: {rid}")
                 clientOpsets: Dict[str, ClientOpSet] = self.geClientOpsets(request)
                 tasks: List[WorkflowTask] = [WorkflowTask(cOpSet) for cOpSet in self.distributeOps(clientOpsets)]
-                self.active_workflows[ rid ] = self.getWorkflow( tasks )
+                self.active_workflows[ rid ] = self.createWorkflow( tasks )
             except queue.Empty:
                 return
             except Exception as err:
@@ -165,13 +162,18 @@ class PC2AppBase(Thread):
                 del self.active_workflows[rid]
 
     def waitForCompletion(self, rid: str ):
+        self.logger.info(f"waiting for completion of request [{rid}]")
         while( self._active ):
             self.update_workflows()
-            if rid in self.completed_workflows: return
+            if rid in self.completed_workflows:
+                self.logger.info( f" Completed request {rid} " )
+                return
             time.sleep( 0.1 )
+        self.logger.info( f"waitForCompletion[{rid}] terminated" )
 
     def getResult( self, rid: str  ) -> Optional[TaskHandle]:
         workflow = self.completed_workflows.get( rid )
+        self.logger.info( f"Retreiving result for request {rid}, completed workflows: {self.completed_workflows.keys()}, request workflow = {workflow}")
         return None if workflow is None else workflow.getResult()
 
     def getWorkflows(self) -> Dict[str, PC2Workflow]:
@@ -183,6 +185,9 @@ class PC2AppBase(Thread):
 
     def getWorkflow(self, rid: str) -> Optional[PC2Workflow]:
         return self.getWorkflows().get(rid)
+
+    def createWorkflow( self, tasks: List[WorkflowTask] ) -> PC2Workflow:
+        return PC2Workflow(nodes=tasks)
 
     def clearWorkflow(self, rid: str):
         if rid in self.completed_workflows:
@@ -206,7 +211,7 @@ class PC2AppBase(Thread):
                opSet.add( op )
         return clientOpsets
 
-    def shutdown(self):
+    def shutdown(self, *args, **kwargs):
         self._active = False
 
     def parm(self, name: str, default = None ) -> str:
@@ -286,7 +291,7 @@ class PC2Factory:
     def buildWorker(self, name: str, spec: Dict[str, str]): pass
 
     @abc.abstractmethod
-    def shutdown(self): pass
+    def shutdown(self, *args, **kwargs): pass
 
     def __getitem__( self, key: str ) -> str:
         result =  self.parms.get( key, None )

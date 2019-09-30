@@ -158,7 +158,7 @@ class Handlers:
                 msg = "Unable to register constructor for {}: {} ({})".format( package_name, str(err), err.__class__.__name__ )
                 self.logger.error( traceback.format_exc() )
 
-    def shutdown(self):
+    def shutdown(self, *args, **kwargs):
         for handler in self._handlers.values():  handler.shutdown()
         self._app_handler.shutdown()
 

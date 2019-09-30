@@ -136,7 +136,7 @@ class PC2ZMQResponder(Thread):
             self.logger.error(traceback.format_exc())
         return socket
 
-    def shutdown(self):
+    def shutdown(self, *args, **kwargs):
         self.close_connection()
 
     def close_connection( self ):

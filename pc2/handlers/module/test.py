@@ -17,7 +17,7 @@ class TestModule1(Module):
     def getWorktime(self, operations: List[Dict]) -> float :
         return sum( [ float(op.get("workTime", 0.0)) for op in operations ] )
 
-    def shutdown(self, **kwargs ): pass
+    def shutdown(self, *args, **kwargs ): pass
 
     def capabilities(self, type: str, **kwargs  ) -> Dict:
         if type == "epas":

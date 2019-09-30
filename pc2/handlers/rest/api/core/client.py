@@ -60,7 +60,7 @@ class CoreRestClient(PC2Client):
     def createResponseManager(self) -> "ResponseManager":
         return self.response_manager
 
-    def shutdown(self):
+    def shutdown(self, *args, **kwargs):
         if self.active:
             self.active = False
             if not (self.response_manager is None):

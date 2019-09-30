@@ -39,7 +39,7 @@ class Handler(PC2Factory):
     def app(self, core: PC2Core ) -> PC2AppBase:
         return self.newApplication(core)
 
-    def shutdown(self):
+    def shutdown(self, *args, **kwargs):
         if self._app is not None:
             self._app.shutdown()
         for client in self._clients.values():

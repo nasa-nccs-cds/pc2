@@ -10,10 +10,11 @@ class DirectClient(PC2Client):
         self.module: Module = None
 
     def instantiateModule( self ) -> Module:
-        module = self["package"]
+        package = self["package"]
         class_name = self["object"]
-        module = importlib.import_module(module)
-        epclass = getattr(module, class_name)
+        self.logger.info( f"Instantiating module[{self.name}] client: package = {package}, class = {class_name}, parms = {self.parms}" )
+        module = importlib.import_module( package )
+        epclass = getattr( module, class_name )
         return  epclass( **self.parms )
 
     @pc2request

@@ -1,0 +1,27 @@
+{
+  "domain": [
+    { "name": "d0", "time": { "start": "1990-01-01", "end": "1991-01-02", "crs": "timestamps" },
+                    "lat":  { "start": 50,           "end": 55,           "crs": "values" },
+                    "lon":  { "start": 250,          "end": 255,          "crs": "values" } }
+  ],
+  "input": [
+    { "uri": "https://dataserver.nccs.nasa.gov//thredds/dodsC/bypass/CREATE-IP/reanalysis/MERRA2/6hr/atmos/tas.ncml", "name": "tas:temp", "domain": "d0" },
+    { "uri": "https://dataserver.nccs.nasa.gov//thredds/dodsC/bypass/CREATE-IP/reanalysis/MERRA2/6hr/atmos/pr.ncml", "name": "pr:moist", "domain": "d0" }
+  ],
+  "input-mon": [
+    { "uri": "https://dataserver.nccs.nasa.gov//thredds/dodsC/bypass/CREATE-IP/reanalysis/MERRA2/mon/atmos/tasmin.ncml", "name": "tasmin:minTemp", "domain": "d0" },
+    { "uri": "https://dataserver.nccs.nasa.gov//thredds/dodsC/bypass/CREATE-IP/reanalysis/MERRA2/mon/atmos/tasmax.ncml", "name": "tasmax:maxTemp", "domain": "d0" },
+    { "uri": "https://dataserver.nccs.nasa.gov//thredds/dodsC/bypass/CREATE-IP/reanalysis/MERRA2/mon/atmos/pr.ncml", "name": "pr:moist", "domain": "d0" }
+  ],
+  "operation": [
+       { "name": "edas:worldClim", "input": "temp,moist", "result": "edasWorldClim" },
+       { "name": "mmx:demo", "input": "edasWorldClim", "species": "Cassins Sparrow", "observations":"ebd_Cassins_2016",
+                              "numTrials": 3, "numPredictors": 2, "result": "mmxResult" }
+  ]
+}
+
+
+
+
+
+

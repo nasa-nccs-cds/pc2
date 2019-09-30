@@ -31,8 +31,9 @@ class PC2Shell(Cmd):
     def do_exe(self, requestFilePath ):
         requestSpec = self.load_request( requestFilePath )
         task: TaskHandle = self.client.request( requestSpec )
-        print( f"Request {task.rid} returned a result" )
-        self.results[ task.rid ] = task
+        if task is not None:
+            print( f"Request {task.rid} returned a result" )
+            self.results[ task.rid ] = task
 
     def do_ls(self, path: str = None ):
         mypath = self.abs_path( path )

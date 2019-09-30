@@ -31,5 +31,5 @@ class PC2AppClient(PC2Client):
     def __del__(self):
         self.app.shutdown()
 
-    def shutdown(self):
+    def shutdown(self, *args, **kwargs):
         self.app.shutdown()

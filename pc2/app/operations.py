@@ -47,8 +47,8 @@ class OpSet(DependencyGraph):
                     parm_epas = key.split(":")[:-1]
                     if (len(parm_epas) == 0) or (epa in parm_epas):
                         filtered_request[key] = value
-        filtered_request["operations"] = operations
-        self.logger.info( f"@@FR: operations = {operations}")
+        filtered_request["operation"] = operations
+        self.logger.info( f"@@FR: operation = {operations}")
         return filtered_request
 
     @DependencyGraph.add.register(Op)
@@ -114,7 +114,7 @@ class ClientOpSet(OpSet):
         self.logger.info(f"ClientOpSet Submit TASK {self.client.handle}" )
         if self._taskHandle is None:
             filtered_request =  self.getFilteredRequest( self._request )
-            self.logger.info( f"Client {self.client.handle}: submit operations {filtered_request['operations']}" )
+            self.logger.info( f"Client {self.client.handle}: submit operations {filtered_request['operation']}" )
             self._taskHandle = self.client.request(filtered_request, inputs)
         return self._taskHandle
 

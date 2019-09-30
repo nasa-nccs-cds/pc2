@@ -17,7 +17,7 @@ from celery.signals import after_setup_task_logger
 from celery.app.log import TaskFormatter
 
 logger = get_task_logger(__name__)
-app = Celery( 'pc2', broker = 'redis://localhost', backend = 'redis://localhost' )
+app = Celery( 'pc2', broker = 'redis://127.0.0.1', backend = 'redis://127.0.0.1' )
 
 app.conf.update(
     result_expires=3600,
