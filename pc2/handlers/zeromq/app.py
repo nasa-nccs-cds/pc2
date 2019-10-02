@@ -16,7 +16,7 @@ class PC2App(PC2ServerApp):
         PC2ServerApp.__init__(self, core, **kwargs)
         self.logger =  PC2Logger.getLogger()
         self.active = True
-        self.parms = self.getConfigParms('pc2')
+        self.parms = self.getConfigParms('server')
         self.client_address = self.parms.get( "client_address","*" )
         self.request_port = self.parms.get( "request_port", 4556 )
         self.response_port = self.parms.get( "response_port", 4557 )
