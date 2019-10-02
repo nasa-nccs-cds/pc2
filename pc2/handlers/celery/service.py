@@ -7,39 +7,52 @@ from pc2.app.base import PC2AppBase
 from .app import PC2AppCelery
 from pc2base.module.util.config import PC2Logger, UID
 from pc2.util.parsing import str2bool
-import subprocess, os
+import subprocess, os, time
 from threading import Thread
 
-class TaskManager(Thread):
+class TaskManager:
 
     def __init__(self, name: str ):
-        Thread.__init__(self)
+        self.logger = PC2Logger.getLogger()
         self._name = name
         self.id = self._name
-        self._completedProcess = None
+        self._process: subprocess.Popen = None
 
-    def run(self):
-        self._completedProcess = subprocess.run(['celery', '--app=pc2.handlers.celery.app:app', 'worker', '-l', 'info',  '-Q', self._name,  '-n', self.id, '-E' ], check = True )
+    def start(self):
+        try:
+            self._process = subprocess.Popen(['/bin/bash', '-c', 'celery', '--app=pc2.handlers.celery.app:app', 'worker', '-l', 'info',  '-Q', self._name,  '-n', self.id, '-E' ] )
+        except Exception as err:
+            self.logger.error( f"Error staring Celery Worker {self._name}: {err}" )
 
-class FlowerManager(Thread):
+    def shutdown(self):
+        self._process.terminate()
+        time.sleep(0.2)
+        self._process.kill()
+
+class FlowerManager:
 
     def __init__ (self ):
-        Thread.__init__(self)
-        self._completedProcess = None
+        self.logger = PC2Logger.getLogger()
+        self._process: subprocess.Popen = None
         self.logger = PC2Logger.getLogger()
 
-    def run(self):
+    def start(self):
         try:
-            self._completedProcess = subprocess.run(['celery', 'flower', '--app=pc2.handlers.celery.app:app', '--port=5555', '--address=127.0.0.1' ], check = True )
+            self._process = subprocess.Popen(['/bin/bash', '-c', 'celery', 'flower', '--app=pc2.handlers.celery.app:app', '--port=5555', '--address=127.0.0.1' ] )
         except Exception as err:
-            self.logger.error( f"Error staring Celery: {err}" )
+            self.logger.error( f"Error staring Flower: {err}" )
+
+    def shutdown(self):
+        self._process.terminate()
+        time.sleep(0.2)
+        self._process.kill()
 
 class ServiceHandler( Handler ):
 
     def __init__(self, **kwargs ):
         htype = os.path.basename(os.path.dirname(__file__))
         self._workers: Dict[str,TaskManager] = {}
-        self._flower = None
+        self._flower: FlowerManager = None
         self.baseDir = os.path.dirname(__file__)
         super(ServiceHandler, self).__init__( htype, **kwargs )
         self._app: PC2AppCelery = None
@@ -82,3 +95,8 @@ class ServiceHandler( Handler ):
             self.logger.info( "Starting Flower")
             self._flower = FlowerManager()
             self._flower.start()
+
+    def shutdown(self, *args, **kwargs):
+        Handler.shutdown( self, *args, **kwargs )
+        if self._flower is not None: self._flower.shutdown()
+        for worker in self._workers.values(): worker.shutdown()

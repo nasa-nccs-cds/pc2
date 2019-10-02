@@ -56,7 +56,7 @@ def celery_execute( self, inputs: List[TaskResult], clientSpec: Dict, requestSpe
 
 class PC2AppCelery(PC2EmbeddedApp):
 
-    def getWorkflow( self, tasks: List[WorkflowTask] ) -> WorkflowBase:
+    def createWorkflow( self, tasks: List[WorkflowTask] ) -> WorkflowBase:
         from pc2.handlers.celery.workflow import CeleryWorkflow
         return CeleryWorkflow( nodes=tasks, **self.parms )
 

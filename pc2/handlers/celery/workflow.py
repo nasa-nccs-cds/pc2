@@ -111,13 +111,13 @@ class CeleryWorkflow(WorkflowBase):
 
         if self.executor == "inline":
             if self.task_result == None:
-                self.logger.info( "Executing Celery Workflow")
+                self.logger.info( f"Executing Celery inline Workflow")
                 self.task_result: TaskResult = self.celery_workflow_sig(task_inputs)
                 self._status = Status.COMPLETED
                 return True
         else:
             if self.celery_result == None:
-                self.logger.info( f"Executing Celery Workflow")
+                self.logger.info( f"Executing Celery distributed Workflow")
                 self.celery_result = self.celery_workflow_sig.apply_async( args=[task_inputs] )
                 self.result = CeleryAsyncTaskHandle(self.celery_result)
                 self._status = Status.EXECUTING
