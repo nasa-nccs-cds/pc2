@@ -20,6 +20,7 @@ class PC2App(PC2ServerApp):
         self.client_address = self.parms.get( "client_address","*" )
         self.request_port = self.parms.get( "request_port", 4556 )
         self.response_port = self.parms.get( "response_port", 4557 )
+        self.logger.info( f"Initializing PC2App with parameters {self.parms}, response_port = {self.response_port}" )
         self.active_handlers = {}
         self.getCertDirs()
 
