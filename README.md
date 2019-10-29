@@ -38,6 +38,10 @@ Following are the optional pc2 services:
 * rest
 * rest_client
 
+##### ZMQ Certificate generation
+
+To generate CURVE certificates for zmq security you can execute the script stratus/handlers/zeromq/security/generate_certificates.py. The certificates will, by default, be written to the ~/.stratus/zmq directory, which is the default location where zmq will look for them. The certificate path will need to be specified using the certificate_path parameter in the stratus configuration if the certificates are stored elsewhere.
+
 ##### Examples
 
 In order to expose some capability within the pc2 framework, that capability must be wrapped as a pc2 module.
